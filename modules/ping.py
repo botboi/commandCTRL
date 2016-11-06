@@ -1,16 +1,18 @@
 import os
 def run(**args):
     myList = []
-    #   Will need to change this for DETER
-    #   Maybe automate to run through range -
-    #   Have to figure out how to have that run without threads
-    #   Because I get too many errors that way - maybe sleep(1)?
-    hostname = "192.168.1.120"
-    response = os.system("ping -c 1 " + hostname)
-    # and then check the response...
-    if response == 0:
-        pingstatus = "Network Active"
-        myList.append(hostname)
-    else:
-        pingstatus = "Network Error"
+    def pinger(hostname):
+        response = os.system("ping -c 1 " + hostname)
+        # and then check the response...
+        if response == 0:
+            pingstatus = 1
+        else:
+            pingstatus = 0
+        return pingstatus
+
+    hostname = "192.168.1."
+    for i in range(10):
+        res = pinger(hostname + str(i))
+        if res == 1:
+            myList.append(hostname + str(i))
     return str(myList)
