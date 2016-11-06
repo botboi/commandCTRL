@@ -13,8 +13,4 @@ def run(**args):
         myList.append(hostname)
     else:
         pingstatus = "Network Error"
-    return myList
-
-test = run()
-
-print test
+    return str(myList)
