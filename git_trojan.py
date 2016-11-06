@@ -12,7 +12,7 @@ BRANCH = 'master'
 ######################################
 
  # unique id.. Maybe have this change for each version?
-trojan_id = "bot2"
+trojan_id = "bot3"
 relative_path = ""	# Matters where this is relative to other files
 trojan_config = relative_path + "config/%s.json" % trojan_id
 data_path = relative_path + "data/%s/" % trojan_id
