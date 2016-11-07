@@ -10,10 +10,10 @@ def run(**args):
             pingstatus = 0
         return pingstatus
 
+#   For DETER need to change to local address!!!!
     hostname = "192.168.1."
-    #   For DETER need to change to local address!!!!
-    #   Change range to (255)
-    for i in range(10):
+
+    for i in range(254):
         res = pinger(hostname + str(i))
         if res == 1:
             myList.append(hostname + str(i))

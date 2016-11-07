@@ -3,7 +3,7 @@
 
 # tr -d "\r" < seed_edit.sh > seed.sh
 # chmod +x seed.sh
-touch SEEDWASHERE
+#touch SEEDWASHERE
 cd /tmp/
 # IF GIT IS NOT INSTALLED ! ! !
 #apt-get update

