@@ -39,5 +39,3 @@ def run(**args):
             print "[-] Failed! ..."
 
     return "str(myList)"
-
-run()
